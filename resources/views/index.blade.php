@@ -22,10 +22,11 @@
     </head>
     <body style="background: #F2F2F2">
         <div class="container">
-            <form action="">
+            <form action="/submit" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="card card-default m-3">
                     <div class="row m-4">
-                        <div class="col-md-10"><input type="file" class="dropify" data-allowed-file-extensions="csv" required /></div>
+                        <div class="col-md-10"><input type="file" name="file" class="dropify" data-allowed-file-extensions="csv" required /></div>
                         <div class="col-md-2"><button type="submit" class="btn btn-default">Upload File</button></div>
                     </div>
                 </div>
