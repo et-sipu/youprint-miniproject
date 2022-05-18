@@ -22,9 +22,9 @@
     <body style="background: #F2F2F2">
         <div class="container">
             <div class="card card-default m-3">
-                <div class="row">
-                    <div class="col-md-10 p-3 pointer"><p class="text-center m-2"><span class="p-3" style="border: 1px dashed grey;border-radius: 5px;">Select file/Drag and drop</span></p></div>
-                    <div class="col-md-2 p-3"><button class="btn btn-default">Upload File</button></div>
+                <div class="row m-4">
+                    <div class="col-md-10"><div class="p-3" style="border: 1px dashed grey;border-radius: 5px;cursor:pointer"><p class="m-0 ml-3 text-left">Select file/Drag and drop</p></div></div>
+                    <div class="col-md-2"><button class="btn btn-default">Upload File</button></div>
                 </div>
             </div>
             <div class="card card-default m-3 p-1">
@@ -56,7 +56,8 @@
     <script>
         $(document).ready( function () {
             $('#datatable').DataTable({
-                "paging": false
+                "paging": false,
+                "searching": false
             });
         });
     </script>
