@@ -14,7 +14,7 @@ class UploadCSVController extends Controller
 
         $file = $request->file('file');
         $filename = time().$file->getClientOriginalName();
-        $fileDir = 'files/'.$filename;
+        $fileDir = 'files/';
 
         $upload = new UploadedFiles;
         $upload->file_name = $filename;
@@ -28,7 +28,7 @@ class UploadCSVController extends Controller
           );
 
           // Call job queue
-          UploadCSV::dispatch($filename);
+          UploadCSV::dispatch($upload->id,$filename);
         }else{
           exit("Error");
         }
