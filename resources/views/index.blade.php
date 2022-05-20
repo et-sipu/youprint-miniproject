@@ -65,18 +65,6 @@
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>[TIME2]</td>
-                            <td>[FILE NAME]</td>
-                            <td>[STATUS]</td>
-                        </tr>
-                        <tr>
-                            <td>[TIME3]</td>
-                            <td>[FILE NAME]</td>
-                            <td>[STATUS]</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -87,15 +75,41 @@
                 <div class="loader"></div>
             </div>
         </div>
+        <input type="text" id="tableContent" hidden>
 
     </body>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <script>
         $(document).ready( function () {
+
+            /* OBJECT FORMAT
+            var jsonData = [{
+                    "created_at": 1,
+                    "file_name": 1,
+                    "status": 1
+                },
+                {
+                    "created_at": 2,
+                    "file_name": 2,
+                    "status": 2
+                }];
+            */
+
             $('#datatable').DataTable({
                 "paging": false,
-                "searching": false
+                "searching": false,
+                //"data": [],
+                "ajax": {
+                    "url": "{{ route('api.getFileList') }}",
+                    "type": "GET",
+                    "dataSrc": "",
+                },
+                "columns": [
+                    { "data": "created_at" },
+                    { "data": "file_name" },
+                    { "data": "status" }
+                ]
             });
 
             $('.dropify').dropify({
@@ -122,11 +136,32 @@
                 },
                 complete: function (xhr) {
                     $('#progressDiv').css("display", "none");
-                    $('#disableOverlayModal').modal('hide');
                     $('#file').parent().find(".dropify-clear").trigger('click');
                     $('#uploadButton').prop("disabled",false);
                 }
             });
+
+            pollServer();
         });
+
+        function pollServer()
+        {
+            window.setTimeout(function () {
+                $.ajax({
+                    url: "{{ route('api.getFileList') }}",
+                    type: "GET",
+                    success: function (result) {
+                        //SUCCESS LOGIC
+                        $('#datatable').dataTable().fnClearTable();
+                        $('#datatable').dataTable().fnAddData(result);
+                        $('#disableOverlayModal').modal('hide');
+                        pollServer();
+                    },
+                    error: function () {
+                        //ERROR HANDLING
+                        pollServer();
+                    }});
+            }, 2000);
+        }
     </script>
 </html>
