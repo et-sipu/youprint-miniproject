@@ -153,7 +153,10 @@
                     success: function (result) {
                         //SUCCESS LOGIC
                         $('#datatable').dataTable().fnClearTable();
-                        $('#datatable').dataTable().fnAddData(result);
+                        if(!result.length == 0){
+                            $('#datatable').dataTable().fnAddData(result);
+                        }
+                        
                         $('#disableOverlayModal').modal('hide');
                         pollServer();
                     },
