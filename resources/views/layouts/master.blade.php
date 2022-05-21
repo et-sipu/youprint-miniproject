@@ -56,19 +56,6 @@
     <script>
         $(document).ready( function () {
 
-            /* OBJECT FORMAT
-            var jsonData = [{
-                    "created_at": 1,
-                    "file_name": 1,
-                    "status": 1
-                },
-                {
-                    "created_at": 2,
-                    "file_name": 2,
-                    "status": 2
-                }];
-            */
-
             $('#datatable').DataTable({
                 "paging": false,
                 "searching": false,
