@@ -15,7 +15,7 @@ class File extends Controller
      */
     public function index()
     {
-        $fileDetail = UploadedFiles::select('created_at','file_name','status')->get();
+        $fileDetail = UploadedFiles::select('id','created_at','file_name','status')->orderByDesc('id')->get();
 
         return $fileDetail;
     }

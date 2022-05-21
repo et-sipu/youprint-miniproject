@@ -109,7 +109,8 @@
                     { "data": "created_at" },
                     { "data": "file_name" },
                     { "data": "status" }
-                ]
+                ],
+                "order": []
             });
 
             $('.dropify').dropify({
