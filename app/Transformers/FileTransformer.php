@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
+use Carbon\Carbon;
 
 class FileTransformer extends TransformerAbstract
 {
@@ -48,9 +49,18 @@ class FileTransformer extends TransformerAbstract
                 $show_status = '<span class="badge badge-danger">Error</span>'; // Error
         }
 
+
+        $result = Carbon::now()->diffForHumans(Carbon::create($file->created_at));
+        $time_diff = "<small>(".str_replace("after","ago",$result).")</small>";
+        if(str_contains($result, 'seconds')){
+            $time_diff = "<small>(Just now)</small>";
+        }
+        
+        $time = Carbon::create($file->created_at)->format('Y-m-d')." ".Carbon::create($file->created_at)->format('H:i A')." ".$time_diff;
+
         return [
             'id'  => $file->id,
-            'time' => $file->created_at,
+            'time' => $time,
             'file_name' => $file->file_name,
             'status' => $show_status
         ];

@@ -57,7 +57,7 @@ return new class extends Migration
             $table->text('BACK_FLAT_IMAGE')->nullable();
             $table->text('PRODUCT_MEASUREMENTS',40)->nullable();
             $table->string('PMS_COLOR')->nullable();
-            $table->string('GTIN')->nullable();
+            $table->unsignedBigInteger('GTIN')->nullable();
         });
     }
 

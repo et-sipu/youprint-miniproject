@@ -130,7 +130,7 @@
                 },
                 uploadProgress: function (event, position, total, percentComplete) {
                     var percentage = percentComplete;
-                    $('.progress .progress-bar').css("width", percentage+'%', function() {
+                    $('.progress .progress-bar').css("width", percentage-5 +'%', function() {
                         return $(this).attr("aria-valuenow", percentage) + "%";
                     })
                     $('#disableOverlayModal').modal('show');
@@ -139,26 +139,31 @@
                     $('#progressDiv').css("display", "none");
                     $('#file').parent().find(".dropify-clear").trigger('click');
                     $('#uploadButton').prop("disabled",false);
+                    pollServer(hideModal = true);
                 }
             });
 
-            pollServer();
+            pollServer(hideModal = false);
         });
 
-        function pollServer()
+        function pollServer(hideModal)
         {
             window.setTimeout(function () {
                 $.ajax({
                     url: "{{ route('api.getFileList') }}",
                     type: "GET",
                     success: function (result) {
+                        console.log(result);
                         //SUCCESS LOGIC
                         $('#datatable').dataTable().fnClearTable();
                         if(!result.length == 0){
                             $('#datatable').dataTable().fnAddData(result);
                         }
+
+                        if($('#disableOverlayModal.modal.show').length == 1 && hideModal){
+                            $('#disableOverlayModal').modal('hide');
+                        }
                         
-                        $('#disableOverlayModal').modal('hide');
                         pollServer();
                     },
                     error: function () {

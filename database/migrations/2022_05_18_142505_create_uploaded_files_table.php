@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('uploaded_files', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
+            $table->string('file_name_actual')->nullable();
             $table->tinyInteger('status')->default('0');
             $table->timestamps();
         });

@@ -14,10 +14,12 @@ class UploadCSVController extends Controller
 
         $file = $request->file('file');
         $filename = time().$file->getClientOriginalName();
+        $file_name_actual = $file->getClientOriginalName();
         $fileDir = 'files/';
 
         $upload = new UploadedFiles;
         $upload->file_name = $filename;
+        $upload->file_name = $file_name_actual;
 
         if($upload->save()){
           // Store file into Storage
