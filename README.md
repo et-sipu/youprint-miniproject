@@ -5,7 +5,9 @@
 - Composer version 2.2.9
 - Redis & Horizon are required to run on the background
 - For Windows OS, require container(such as Docker) to run Redis
-- For Windows OS, Horizon cannot be serve. Thus Laravel Queue are required as an alternative: php artisan queue:listen --timeout=900 --queue=default,horizon
+- For Windows OS, Horizon cannot be serve. Thus Laravel Queue are required as an alternative
+
+    $ php artisan queue:listen --timeout=900 --queue=default,horizon
 
 ## Installation
 
