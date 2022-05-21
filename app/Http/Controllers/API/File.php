@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\UploadedFiles;
 use Illuminate\Http\Request;
+use App\Transformers\FileTransformer;
 
 class File extends Controller
 {
@@ -15,9 +16,12 @@ class File extends Controller
      */
     public function index()
     {
-        $fileDetail = UploadedFiles::select('id','created_at','file_name','status')->orderByDesc('id')->get();
-
-        return $fileDetail;
+        $files = UploadedFiles::select('id','created_at','file_name','status')->orderByDesc('id')->get();
+        //return $files;
+        return fractal()
+                ->collection($files)
+                ->transformWith(new FileTransformer())
+                ->toArray()['data'];
     }
 
     /**
