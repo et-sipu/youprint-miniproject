@@ -31,3 +31,16 @@ Run php artisan command
     $ php artisan migrate
     $ php artisan storage:link
     $ php artisan serve
+
+Running Horizon
+
+    $ php artisan horizon
+
+Running Horizon(Windows OS)
+
+    $ php artisan queue:listen --timeout=900 --queue=default,horizon
+
+Horizon monitor can be access via:
+
+    $ {app-url}/horizon
+
